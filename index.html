@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zayan AI Predictor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#070b14;
+--card:#121a2b;
+--text:#eaf0ff;
+--muted:#93a4b8;
+--green:#1fd38a;
+--blue:#2b6fff;
+--orange:#ff7a00;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:'Inter',sans-serif;
+background:radial-gradient(circle at top,#0f1a33,#070b14);
+color:var(--text);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:18px;
+}
+
+.container{
+width:min(460px,100%);
+background:rgba(18,26,43,0.95);
+border-radius:22px;
+padding:24px;
+border:1px solid rgba(255,255,255,0.06);
+box-shadow:0 0 60px rgba(0,0,0,0.8);
+}
+
+.logo{
+text-align:center;
+font-size:26px;
+font-weight:900;
+color:var(--green);
+}
+
+.subtitle{
+text-align:center;
+font-size:13px;
+color:var(--muted);
+margin-top:4px;
+}
+
+.badges{
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap;
+margin:12px 0;
+}
+
+.badge{
+font-size:12px;
+padding:6px 10px;
+border-radius:999px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.07);
+}
+
+.section-title{
+font-size:14px;
+font-weight:800;
+margin:14px 0 8px;
+}
+
+.games{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.game{
+padding:12px;
+border-radius:14px;
+background:var(--card);
+border:2px solid rgba(255,255,255,0.08);
+cursor:pointer;
+display:flex;
+gap:10px;
+align-items:center;
+font-weight:700;
+transition:.2s;
+}
+
+.icon{
+width:34px;
+height:34px;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,0.06);
+}
+
+.game.active{
+border-color:var(--green);
+box-shadow:0 0 12px rgba(31,211,138,0.35);
+transform:scale(1.02);
+}
+
+.input{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:none;
+background:var(--card);
+color:#fff;
+margin-top:6px;
+outline:none;
+}
+
+.btn{
+width:100%;
+margin-top:14px;
+padding:14px;
+border:none;
+border-radius:12px;
+font-weight:900;
+background:linear-gradient(90deg,var(--orange),var(--green));
+color:#000;
+cursor:pointer;
+}
+
+.btn:disabled{opacity:.5}
+
+/* TELEGRAM BUTTON */
+.telegram{
+width:100%;
+margin-top:10px;
+display:block;
+text-align:center;
+padding:12px;
+border-radius:12px;
+background:#229ED9;
+color:#fff;
+font-weight:800;
+text-decoration:none;
+transition:.2s;
+}
+
+.telegram:hover{
+transform:scale(1.02);
+}
+
+/* loader */
+.loader{
+display:none;
+margin-top:12px;
+text-align:center;
+font-size:13px;
+color:var(--muted);
+}
+
+/* popup */
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.65);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.popup-box{
+background:var(--card);
+padding:20px;
+border-radius:16px;
+width:90%;
+max-width:320px;
+text-align:center;
+}
+
+.popup-title{
+color:var(--orange);
+font-weight:900;
+margin-bottom:10px;
+}
+
+.popup-btn{
+margin-top:12px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+background:var(--green);
+color:#000;
+font-weight:800;
+cursor:pointer;
+}
+
+.meta{
+display:flex;
+justify-content:space-between;
+margin-top:12px;
+font-size:12px;
+color:var(--muted);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">Zayan AI Predictor</div>
+<div class="subtitle">Smart Predictions • Zayan Ahmed</div>
+
+<div class="badges">
+<div class="badge">🔒 Secure</div>
+<div class="badge">📊 AI System</div>
+<div class="badge">⚡ Real-time</div>
+<div class="badge">🇵🇰 Pakistan</div>
+</div>
+
+<div class="section-title">Select a game</div>
+
+<div class="games">
+
+<div class="game active" data-game="aviator">
+<div class="icon">🚀</div> Aviator
+</div>
+
+<div class="game" data-game="mines">
+<div class="icon">💣</div> Mines
+</div>
+
+<div class="game" data-game="crash">
+<div class="icon">🍎</div> Apple of Fortune
+</div>
+
+<div class="game" data-game="penalty">
+<div class="icon">⚽</div> Penalty
+</div>
+
+<div class="game" data-game="chicken">
+<div class="icon">🐔</div> Chicken Road
+</div>
+
+</div>
+
+<div class="section-title">1xBet Account ID</div>
+<input class="input" id="acc" maxlength="10" placeholder="Entrer 10 chiffres">
+
+<button class="btn" id="btn" disabled>Start</button>
+
+<a class="telegram" href="https://t.me/ZayanAhmedBot" target="_blank">
+📩 Telegram Support
+</a>
+
+<div class="loader" id="loader">Analysis in progress...</div>
+
+<div class="meta">
+<div>⏳ 05:00</div>
+<div>🟢 Live</div>
+</div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<div class="popup-box">
+<div class="popup-title">Analysis interrupted</div>
+<div>❌ Deposit of 2000 PKR not found. Please make a deposit to continue.</div>
+<button class="popup-btn" onclick="closePopup()">Try again</button>
+</div>
+</div>
+
+<script>
+
+const acc=document.getElementById("acc");
+const btn=document.getElementById("btn");
+const loader=document.getElementById("loader");
+const popup=document.getElementById("popup");
+
+const steps=[
+"Data analysis...",
+"Connecting to the AI ​​server...",
+"Model processing...",
+"Generating results..."
+];
+
+acc.addEventListener("input",()=>{
+acc.value=acc.value.replace(/\D/g,'');
+btn.disabled=acc.value.length!==10;
+});
+
+btn.addEventListener("click",()=>{
+
+loader.style.display="block";
+btn.disabled=true;
+
+let i=0;
+
+let interval=setInterval(()=>{
+
+loader.textContent=steps[i];
+i++;
+
+if(i>=steps.length){
+clearInterval(interval);
+
+setTimeout(()=>{
+loader.style.display="none";
+popup.style.display="flex";
+btn.disabled=false;
+},700);
+
+}
+
+},700);
+
+});
+
+function closePopup(){
+popup.style.display="none";
+}
+
+const games = document.querySelectorAll(".game");
+
+games.forEach(game => {
+game.addEventListener("click", () => {
+
+games.forEach(g => g.classList.remove("active"));
+game.classList.add("active");
+
+});
+});
+
+</script>
+
+</body>
+</html>
